@@ -1,0 +1,64 @@
+.loginForm {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .loginForm h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .loginForm label {
+    display: block;
+    margin-bottom: 5px;
+    color: #666;
+  }
+  
+  .loginForm input[type="text"],
+  .loginForm input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .loginForm button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  .loginForm button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  /* Style for the registration link */
+  .loginForm p {
+    text-align: center;
+    margin-top: 20px;
+    color: #777;
+  }
+  
+  .loginForm p a {
+    color: #007bff;
+    text-decoration: underline;
+    font-weight: bold;
+  }
+
+
+/*------------------------------------------------------------------------------------------------------------*/
+

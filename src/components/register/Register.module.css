@@ -1,0 +1,66 @@
+.registerForm {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .registerForm-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .registerForm label {
+    display: block;
+    margin-bottom: 5px;
+    color: #666;
+  }
+  
+  .registerForm input[type="text"],
+  .registerForm input[type="email"],
+  .registerForm input[type="password"],
+  .registerForm input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .registerForm button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  .registerForm button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  /* Additional styles for the file input field */
+  .registerForm input[type="file"] {
+    cursor: pointer;
+  }
+  
+  .registerForm p {
+    text-align: center;
+    margin-top: 20px;
+    color: #777;
+  }
+  
+  .registerForm p a {
+    color: #007bff;
+    text-decoration: underline;
+    font-weight: bold;
+  }
