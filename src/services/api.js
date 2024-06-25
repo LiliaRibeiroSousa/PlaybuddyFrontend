@@ -14,7 +14,7 @@ const api = {
   deleteMatch: (id) => axios.delete(`${API_URL}/matches/${id}`),
   getMatchById: (id) => axios.get(`${API_URL}/matches/${id}`),
   getConversations: (id) => axios.get(`${API_URL}/messages/conversation/${id}`),
-  sendMessage: (data) => axios.post(`${API_URL}/messages`, data),
+  sendMessage: (formData) => axios.post(`${API_URL}/messages`, formData),
   getMessagesBetween: (senderId, recipientId) => axios.get(`${API_URL}/messages/conversation/${senderId}/${recipientId}`),
   updateMessage: (id, formData) => axios.patch(`${API_URL}/messages/${id}`, formData),
   deleteMessage: (id) => axios.delete(`${API_URL}/messages/${id}`),
@@ -24,8 +24,5 @@ const api = {
   updateSwipe: (id, formData) => axios.patch(`${API_URL}/swipes/${id}`, formData),
   deleteSwipe: (id) => axios.delete(`${API_URL}/swipes/${id}`)
 };
-
-
-
 
 export default api;

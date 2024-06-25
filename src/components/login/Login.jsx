@@ -16,41 +16,55 @@ function LoginForm({ onLogin }) {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setError(null); // Reset error state before submission
     try {
-      //console.log(formData)
       const formDataObj = new FormData();
       formDataObj.append('usernameOrEmail', formData.usernameOrEmail);
       formDataObj.append('password', formData.password);
 
       const response = await api.login(formDataObj);
-      onLogin(response.data);
-      
+
+      // Assuming response.data contains necessary fields: token, user_id, username, profile_picture, email
+      const { token, user_id, username, profile_picture, email } = response.data;
+
+      // Store user data in localStorage
+      localStorage.setItem('token', token);
+      localStorage.setItem('userId', user_id.toString()); // Convert user_id to string if needed
+      localStorage.setItem('username', username);
+      localStorage.setItem('profilePicture', profile_picture);
+      localStorage.setItem('email', email);
+
+      // Update current user state
+      onLogin({
+        token,
+        userId: user_id,
+        username,
+        profilePicture: profile_picture,
+        email,
+      });
+
+      // Redirect to feed page or another relevant page
       navigate('/feed');
     } catch (error) {
       console.error('Login error', error);
       if (error.response) {
-        // The request was made and the server responded with a status code that falls out of the range of 2xx
         setError(`Login failed: ${error.response.data.message}`);
       } else if (error.request) {
-        // The request was made but no response was received
         setError('No response from server. Please try again later.');
       } else {
-        // Something happened in setting up the request that triggered an Error
         setError('Login error. Please check your network connection.');
       }
     }
   };
 
   return (
-    
     <div className={Styles.loginForm}>
-      <img src={tetrisheart}></img>
+      <img src={tetrisheart} alt="Tetris Heart" />
       <h2>Login</h2>
       {error && <p className={Styles.error}>{error}</p>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleLogin}>
         <label htmlFor="usernameOrEmail">Username or Email</label>
         <input
           id="usernameOrEmail"

@@ -1,33 +1,53 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 import TinderCard from 'react-tinder-card';
-import Styles from './Swipe.module.css'; // Ensure you import your CSS module correctly
+import Styles from './Swipe.module.css';
+import { FaHeart, FaTimes, FaStar } from 'react-icons/fa';
 
 const Swipe = ({ user, onSwipe }) => {
-    const [isSwiping, setIsSwiping] = useState(false);
+    if (!user) {
+        return null; // Return null or loading indicator if user is not available
+    }
 
     const handleSwipe = (direction) => {
-        setIsSwiping(false); // Reset swiping state
         onSwipe(direction);
     };
 
+    const handleCardLeftScreen = (direction) => {
+        console.log(`${user.username} left the screen to the ${direction}`);
+    };
+
     return (
-        <TinderCard
-            className={`swipe ${isSwiping ? 'swiping' : ''}`}
-            onSwipe={(direction) => handleSwipe(direction)}
-        >
-            <div className={Styles.card}>
-                <img src={user.profile_picture} alt={user.username} className={Styles.profilePicture} />
-                <h3>{user.username}</h3>
-                <p>{user.bio}</p>
-                <p>{user.games}</p>
+        <div className={Styles.cardContainer}>
+            <TinderCard
+                className={Styles.swipe}
+                onSwipe={handleSwipe}
+                onCardLeftScreen={handleCardLeftScreen}
+                preventSwipe={['up', 'down']} // Prevent vertical swipes
+            >
+                <div className={Styles.card}>
+                    <img src={user.profile_picture} alt={user.username} className={Styles.profilePicture} />
+                    <h3>{user.username}</h3>
+                    <p>{user.bio}</p>
+                    <p>{user.games}</p>
+                </div>
+            </TinderCard>
+            <div className={Styles.buttons}>
+                <button onClick={() => handleSwipe('left')} className={Styles.dislike}>
+                    <FaTimes size={24} />
+                </button>
+                <button onClick={() => handleSwipe('super')} className={Styles.superLike}>
+                    <FaStar size={24} />
+                </button>
+                <button onClick={() => handleSwipe('right')} className={Styles.like}>
+                    <FaHeart size={24} />
+                </button>
             </div>
-        </TinderCard>
+        </div>
     );
 };
 
 Swipe.propTypes = {
-    user: PropTypes.object.isRequired,
+    user: PropTypes.object,
     onSwipe: PropTypes.func.isRequired,
 };
 
