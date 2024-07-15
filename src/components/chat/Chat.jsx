@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import api from '../../services/api';
 import Styles from './Chat.module.css';
@@ -9,14 +9,16 @@ const Chat = () => {
   const { currentUser, matchedUserId } = location.state || {};
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
-  const [otherUser, setOtherUser] = useState(null);
+  const [otherUser, setOtherUser] = useState();
   const [error, setError] = useState('');
+  const messagesEndRef = useRef(null);
 
   useEffect(() => {
     const fetchMessages = async () => {
       try {
         const response = await api.getMessagesBetween(currentUser.id, matchedUserId);
         setMessages(response.data);
+        console.log('Fetched messages:', response.data);
       } catch (error) {
         console.error('Error fetching messages:', error.status);
         setError('Error fetching messages.');
@@ -28,6 +30,7 @@ const Chat = () => {
         const response = await api.getUserById(matchedUserId);
         if (response.data) {
           setOtherUser(response.data);
+          console.log('Other user:', response.data);
         } else {
           setError('Other user not found.');
         }
@@ -41,38 +44,48 @@ const Chat = () => {
       fetchMessages();
       fetchOtherUser();
     }
-  }, [currentUser, matchedUserId]);
+  }, [currentUser, matchedUserId, matchId]);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
+  const formatDate = (date) => {
+    const pad = (num) => num.toString().padStart(2, '0');
+    const year = date.getFullYear();
+    const month = pad(date.getMonth() + 1);
+    const day = pad(date.getDate());
+    const hours = pad(date.getHours());
+    const minutes = pad(date.getMinutes());
+    const seconds = pad(date.getSeconds());
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  };
 
   const handleSendMessage = async () => {
-    if (!newMessage.trim()) return;
+    const formData = new FormData();
+    formData.append('sender_id', currentUser.id);
+    formData.append('recipient_id', matchedUserId);
+    formData.append('message', newMessage);
+    formData.append('time', formatDate(new Date()));
 
     try {
-      const formData = {
-        sender_id: Number(currentUser.id),
-        recipient_id: Number(matchedUserId),
-        message: newMessage,
-        time: new Date().toISOString()
-      };
-
-      console.log('Sending message with formData:', formData);
-
       const response = await api.sendMessage(formData);
-      setMessages([...messages, response.data]);
-      setNewMessage('');
-    } catch (error) {
-      console.error('Error sending message:', error.response?.data || error.message);
+      const data = response.data;
+      console.log('Message sent:', data);
 
-      if (error.response) {
-        console.error('Server responded with:', error.response.data);
-        setError(`Error sending message: ${error.response.data.message || 'Internal Server Error'}`);
-      } else {
-        setError('Error sending message.');
-      }
+      // Add the new message to the messages state
+      setMessages([...messages, data]);
+      setNewMessage(''); // Clear the input field
+    } catch (error) {
+      console.error('Error sending message:', error);
+      setError('Error sending message.');
     }
   };
 
   return (
     <div className={Styles.chatContainer}>
+      
       <h2>Chat with {otherUser?.username}</h2>
       {error && <div className={Styles.error}>{error}</div>}
       <div className={Styles.messages}>
@@ -81,9 +94,10 @@ const Chat = () => {
             key={message.id}
             className={`${Styles.message} ${message.sender_id === currentUser.id ? Styles.sent : Styles.received}`}
           >
-            {message.content}
+            {message.message}
           </div>
         ))}
+        <div ref={messagesEndRef} />
       </div>
       <div className={Styles.inputContainer}>
         <input
