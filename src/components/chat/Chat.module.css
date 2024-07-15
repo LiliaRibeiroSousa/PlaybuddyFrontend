@@ -1,80 +1,165 @@
 .chatContainer {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    max-width: 600px;
-    margin: auto;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    overflow: hidden;
-  }
-  
-  .messages {
-    flex: 1;
-    overflow-y: auto;
-    padding: 10px;
-    background-color: #f9f9f9;
-  }
-  
-  .message {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    max-width: 70%;
-    padding: 10px;
-    border-radius: 10px;
-    word-wrap: break-word;
-  }
-  
-  .sent {
-    background-color: #dcf8c6;
-    align-self: flex-end;
-    flex-direction: row-reverse;
-  }
-  
-  .received {
-    background-color: #fff;
-    align-self: flex-start;
-    border: 1px solid #ccc;
-  }
-  
-  .profilePic {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin: 0 10px;
-  }
-  
-  .inputContainer {
-    display: flex;
-    padding: 10px;
-    border-top: 1px solid #ccc;
-    background-color: #fff;
-  }
-  
-  .inputContainer input {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-right: 10px;
-  }
-  
-  .inputContainer button {
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .inputContainer button:hover {
-    background-color: #0056b3;
-  }
-  
-  .error {
-    color: red;
-    margin: 10px 0;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-width: 600px;
+  margin: auto;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  color: rgb(156, 6, 81); 
+  font-size: 24px;
+  margin: 20px 0;
+  font-family: 'Arial', sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  border-bottom: 2px solid rgb(156, 6, 81); /* Adding a border for style */
+}
+
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  background-color: #f9f9f9; /* Lighter background */
+}
+
+.messageContainer {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 10px;
+}
+
+.sentContainer,
+.receivedContainer {
+  display: flex;
+  align-items: flex-end;
+}
+
+.sentContainer {
+  justify-content: flex-end;
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+.receivedContainer {
+  justify-content: flex-start;
+  margin-right: auto;
+  margin-left: 10px;
+}
+
+.message {
+  padding: 10px;
+  border-radius: 10px;
+  word-wrap: break-word;
+  position: relative;
+  max-width: 70%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.message:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.sent {
+  background-color: #dcf8c6;
+  margin-left: 10px;
+}
+
+.received {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+}
+
+.profilePic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.inputContainer {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.inputContainer input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+  transition: border 0.2s;
+}
+
+.inputContainer input:focus {
+  border: 1px solid #007bff;
+}
+
+.inputContainer button {
+  padding: 10px 15px;
+  background-color: rgb(156, 6, 81); /* Solid blue color */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.inputContainer button:hover {
+  background-color: #0056b3;
+}
+
+.timestamp {
+  display: block;
+  font-size: 0.75em;
+  color: gray;
+  margin-top: 5px;
+  text-align: right;
+}
+
+.error {
+  color: red;
+  margin: 10px 0;
+}
+
+.actions {
+  display: flex;
+  gap: 5px;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+}
+
+.actions button {
+  padding: 2px 5px;
+  background-color: #ff0000;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.actions button:first-of-type {
+  background-color: #ffa500;
+}
+
+.actions button:hover {
+  background-color: #d00000;
+}
+
+.actions button:first-of-type:hover {
+  background-color: #cc8400;
+}

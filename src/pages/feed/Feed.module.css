@@ -1,17 +1,40 @@
+/* src/components/feed/Feed.module.css */
+
 .feed {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: 100vh;
-}
-
-.swipeContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 80%;
-    max-width: 350px; /* Set a max-width to make the swipe container smaller */
-    margin: 0 auto; /* Center the swipe container */
-}
+    padding: 20px;
+  }
+  
+  .swipeContainer {
+    margin-bottom: 20px;
+  }
+  
+  .buttonContainer {
+    margin-top: 20px;
+  }
+  
+  .matchPopup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ff69b4; /* Pink background color */
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    animation: blink 2s infinite; /* Blink animation for 2 seconds */
+  }
+  
+  @keyframes blink {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+  
