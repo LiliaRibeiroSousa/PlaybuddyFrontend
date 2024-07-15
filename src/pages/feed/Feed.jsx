@@ -1,98 +1,210 @@
-import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import api from '../../services/api';
-import Swipe from '../../components/swipe/Swipe';
-import Styles from './Feed.module.css';
+/* import { useState, useEffect } from "react";
 
-const Feed = ({ currentUser }) => {
+// import { Link } from "react-router-dom";
+import api from "../../services/api";
+import Swipe from "../../components/swipe/Swipe";
+import Styles from "./Feed.module.css";
+import { useNavigate } from "react-router-dom";
+
+const Feed = () => {
+  const [users, setUsers] = useState([]);
+  const [currentUser, setCurrentUser] = useState({});
+  const [loading, setLoading] = useState(true);
+  const user1 = parseInt(localStorage.getItem("userId"), 10);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await api.getUsers();
+        const data = response.data;
+        const swipedUsers = await api.getSwipeById(user1);
+        const SwipedIds = swipedUsers.data.map((swipe) => swipe.swiped_on_id);
+        const remainingUsers = data.filter(
+          (user) => !SwipedIds.includes(user.id)
+        );
+        const FinalUsers = remainingUsers.filter((user) => user.id != user1);
+        console.log(FinalUsers);
+        setUsers(FinalUsers);
+        setCurrentUser(data[0]); // Set the first user as the currentUser
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching users", error);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
+  const handleSwipeAction = async (direction) => {
+    if (!currentUser || !currentUser.id) {
+      console.error("currentUser is null or undefined");
+      return;
+    }
+
+    const swipedUser = users[0];
+
+    try {
+      const formData = new FormData();
+      formData.append("user_id", user1);
+      formData.append("swiped_on_id", swipedUser.id);
+      formData.append("direction", direction);
+      formData.append("time", new Date().toISOString());
+
+      const swipeResponse = await api.createMatch(formData);
+      console.log("Swipe response:", swipeResponse);
+
+      if (swipeResponse.response == "No match") {
+        console.log("No match");
+      } else {
+        console.log("Match");
+      }
+    } catch (error) {
+      console.error(
+        "Error creating swipe or match:",
+        error.response ? error.response.data : error.message
+      );
+    }
+
+    const newUserList = users.slice(1);
+    setUsers(newUserList);
+    setCurrentUser(newUserList[0]); // Set the next user as the currentUser
+
+    console.log(
+      `${swipedUser.username} was ${direction === "right" ? "liked" : "passed"}`
+    );
+  };
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+return (
+    <div className={Styles.feed}>
+        <h2>Find your Buddy</h2>
+        <div className={Styles.swipeContainer}>
+            {users.length > 0 && currentUser ? (
+                <Swipe
+                    key={currentUser.id}
+                    user={currentUser}
+                    onSwipe={handleSwipeAction}
+                />
+            ) : (
+                <p>No more users to display</p>
+            )}
+        </div>
+        <div className={Styles.buttonContainer}>
+            <button onClick={() => navigate(`/matches/${user1}`)}>View Matches</button>
+        </div>
+    </div>
+);
+};
+
+
+export default Feed; */
+
+
+  import { useState, useEffect } from "react";
+  import api from "../../services/api";
+  import Swipe from "../../components/swipe/Swipe";
+  import Styles from "./Feed.module.css";
+  import { useNavigate } from "react-router-dom";
+
+  const Feed = () => {
     const [users, setUsers] = useState([]);
+    const [currentUser, setCurrentUser] = useState(null);
     const [loading, setLoading] = useState(true);
-    
-    useEffect(() => {
-        const fetchUsers = async () => {
-            try {
-                const response = await api.getUsers();
-                const data =  response.data;
-                console.log(data)
-                setUsers(data);
-                setLoading(false);
-            } catch (error) {
-                console.error('Error fetching users', error);
-            }
-        };
+    const user1 = parseInt(localStorage.getItem("userId"), 10);
 
-        fetchUsers();
-        console.log(users);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      const fetchUsers = async () => {
+        try {
+          const response = await api.getUsers();
+          const data = response.data;
+          const swipedUsers = await api.getSwipeById(user1);
+          const SwipedIds = swipedUsers.data.map((swipe) => swipe.swiped_on_id);
+          const remainingUsers = data.filter(
+            (user) => !SwipedIds.includes(user.id)
+          );
+          const FinalUsers = remainingUsers.filter((user) => user.id !== user1);
+          console.log(FinalUsers);
+          setUsers(FinalUsers);
+          setCurrentUser(FinalUsers[0] || null); // Set the first user from remaining users as the currentUser, or null if no users left
+          setLoading(false);
+        } catch (error) {
+          console.error("Error fetching users", error);
+          setLoading(false);
+        }
+      };
+
+      fetchUsers();
     }, []);
 
     const handleSwipeAction = async (direction) => {
-        if (!currentUser || !currentUser.id) {
-            console.error('currentUser is null or undefined');
-            return;
+      if (!currentUser || !currentUser.id) {
+        console.error("currentUser is null or undefined");
+        return;
+      }
+
+      const swipedUser = users[0];
+
+      try {
+        const formData = new FormData();
+        formData.append("user_id", user1);
+        formData.append("swiped_on_id", swipedUser.id);
+        formData.append("direction", direction);
+        formData.append("time", new Date().toISOString());
+
+        const swipeResponse = await api.createMatch(formData);
+        console.log("Swipe response:", swipeResponse);
+
+        if (swipeResponse.data.status === "No match")  {
+          console.log("No match");
+        } else {
+          console.log("Match");
         }
+      } catch (error) {
+        console.error(
+          "Error creating swipe or match:",
+          error.response ? error.response.data : error.message
+        );
+      }
 
-        const swipedUser = users[0];
+      const newUserList = users.slice(1);
+      setUsers(newUserList);
+      setCurrentUser(newUserList[0] || null); // Set the next user as the currentUser, or null if no users left
 
-        try {
-            const formData = new FormData();
-            formData.append('user_id', currentUser.id);
-            formData.append('swiped_on_id', swipedUser.id);
-            formData.append('direction', direction);
-            formData.append('time', new Date().toISOString());
-
-            const swipeResponse = await api.createSwipe(formData);
-            console.log('Swipe response:', swipeResponse);
-
-            const matchCheckResponse = await api.checkMatch(currentUser.id, swipedUser.id);
-            console.log('Match check response:', matchCheckResponse);
-
-            if (matchCheckResponse.data.match) {
-                const matchFormData = new FormData();
-                matchFormData.append('userid1', currentUser.id);
-                matchFormData.append('userid2', swipedUser.id);
-                matchFormData.append('time', new Date().toISOString());
-
-                const matchResponse = await api.createMatch(matchFormData);
-                console.log('Match response:', matchResponse);
-
-                alert(`You matched with ${swipedUser.username}!`);
-            }
-        } catch (error) {
-            console.error('Error creating swipe or match:', error.response ? error.response.data : error.message);
-        }
-
-        const newUserList = users.slice(1);
-        setUsers(newUserList);
-
-        console.log(`${swipedUser.username} was ${direction === 'right' ? 'liked' : 'passed'}`);
-    };
+      console.log(
+        `${swipedUser.username} was ${direction === "right" ? "liked" : "passed"}`
+      );
+  };
 
     if (loading) {
-        return <p>Loading...</p>;
+      return <p>Loading...</p>;
     }
 
     return (
-        <div className={Styles.feed}>
-            <h2>Find your Buddy</h2>
-            <div className={Styles.swipeContainer}>
-                {users.length > 0 && currentUser ? (
-                    <Swipe key={users[0].id} user={users[0]} onSwipe={handleSwipeAction} />
-                ) : (
-                    <p>No more users to display</p>
-                )}
-            </div>
-            <div className={Styles.buttonContainer}>
-                <Link to="/matches" className={Styles.matchesLink}>
-                    Go to Matches
-                </Link>
-            </div>
+      <div className={Styles.feed}>
+        <h2>Find your Buddy</h2>
+        <div className={Styles.swipeContainer}>
+          {users.length > 0 && currentUser ? (
+            <Swipe
+              key={currentUser.id}
+              user={currentUser}
+              onSwipe={handleSwipeAction}
+            />
+          ) : (
+            <p>No more users to display</p>
+          )}
         </div>
+        <div className={Styles.buttonContainer}>
+        <button onClick={() => navigate(`/matches/${user1}`, { state: { currentUser } })}>View Matches</button>
+        </div>
+      </div>
     );
-};
+  };
 
-Feed.propTypes = {
-    currentUser: PropTypes.object.isRequired,
-};
-
-export default Feed;
+  export default Feed;

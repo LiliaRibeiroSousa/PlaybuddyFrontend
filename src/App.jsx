@@ -4,8 +4,9 @@ import Login from './components/login/Login';
 import Register from './components/register/Register';
 import Homepage from './pages/Homepage';
 import Feed from './pages/feed/Feed';
-import Matches from './components/matches/Matches';
 import { useState, useEffect } from 'react';
+import Chat from './components/chat/Chat';
+import Matches from './components/matches/Matches';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -17,13 +18,13 @@ function App() {
         setCurrentUser(JSON.parse(storedUser));
       } catch (error) {
         console.error('Error parsing stored user data:', error);
-        localStorage.removeItem('currentUser'); // Clear invalid data from local storage
+        localStorage.removeItem('currentUser'); 
       }
-    }
+    } 
   }, []);
 
   const handleLogin = (userData) => {
-    setCurrentUser(userData); // Update the current user state
+    setCurrentUser(userData); 
   };
 
   return (
@@ -33,7 +34,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
         <Route path="/feed" element={<Feed currentUser={currentUser} />} />
-        <Route path="/matches" element={<Matches currentUser={currentUser} />} />
+        <Route path="/matches/:userId" element={<Matches />} />
+        <Route path="/chat/:matchId" element={<Chat/>} />
     
       </Routes>
     </Router>
