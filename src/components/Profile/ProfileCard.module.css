@@ -1,0 +1,63 @@
+.profileCard {
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  text-align: center;
+  width: 300px;
+  margin: 20px auto;
+}
+
+.profilePicture {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+}
+
+.bio {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.games, .platforms, .skill_level, .location {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 5px;
+}
+
+.formGroup {
+  margin: 15px 0;
+}
+
+.formGroup input[type="text"],
+.formGroup input[type="email"],
+.formGroup input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  margin-top: 5px;
+}
+
+.formGroup input[type="text"]:focus,
+.formGroup input[type="email"]:focus,
+.formGroup input[type="file"]:focus {
+  outline: none;
+  border-color: #0056b3;
+}
+
+button {
+  background-color: rgb(156, 6, 81);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}

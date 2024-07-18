@@ -1,6 +1,7 @@
-/* src/components/matches/Matches.module.css */
+
 
 .matchesContainer {
+  margin: auto;
   padding: 20px;
   display: flex;
   justify-content: center; /* Center the match list */

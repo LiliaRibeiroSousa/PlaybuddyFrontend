@@ -9,8 +9,6 @@ const Chat = () => {
   const { currentUser, matchedUserId } = location.state || {};
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
-  const [editingMessageId, setEditingMessageId] = useState(null);
-  const [editMessageText, setEditMessageText] = useState('');
   const [otherUser, setOtherUser] = useState();
   const [error, setError] = useState('');
   const messagesEndRef = useRef(null);
@@ -93,36 +91,6 @@ const Chat = () => {
     }
   };
 
-  const handleEditMessage = async (messageId) => {
-    const formData = new FormData();
-    formData.append('message', editMessageText);
-
-    try {
-      const response = await api.updateMessage(messageId, formData);
-      const updatedMessage = response.data;
-
-      setMessages((prevMessages) => 
-        prevMessages.map((msg) => (msg.id === messageId ? updatedMessage : msg))
-      );
-      setEditingMessageId(null); // Exit editing mode
-      setEditMessageText('');
-    } catch (error) {
-      console.error('Error editing message:', error);
-      setError('Error editing message.');
-    }
-  };
-
-  const handleDeleteMessage = async (messageId) => {
-    try {
-      await api.deleteMessage(messageId);
-
-      setMessages((prevMessages) => prevMessages.filter((msg) => msg.id !== messageId));
-    } catch (error) {
-      console.error('Error deleting message:', error);
-      setError('Error deleting message.');
-    }
-  };
-
   return (
     <div className={Styles.chatContainer}>
       <h2>Chat with {otherUser?.username}</h2>
@@ -141,37 +109,8 @@ const Chat = () => {
               />
             )}
             <div className={`${Styles.message} ${message.sender_id === currentUser.id ? Styles.sent : Styles.received}`}>
-              {editingMessageId === message.id ? (
-                <input
-                  type="text"
-                  value={editMessageText}
-                  onChange={(e) => setEditMessageText(e.target.value)}
-                  onBlur={() => handleEditMessage(message.id)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      handleEditMessage(message.id);
-                    }
-                  }}
-                />
-              ) : (
-                <>
-                  <span className={Styles.messageText}>{message.message}</span>
-                  <span className={Styles.timestamp}>{formatTime(new Date(message.time))}</span>
-                </>
-              )}
-              {message.sender_id === currentUser.id && (
-                <div className={Styles.actions}>
-                  <button
-                    onClick={() => {
-                      setEditingMessageId(message.id);
-                      setEditMessageText(message.message);
-                    }}
-                  >
-                    Edit
-                  </button>
-                  <button onClick={() => handleDeleteMessage(message.id)}>Delete</button>
-                </div>
-              )}
+              <span className={Styles.messageText}>{message.message}</span>
+              <span className={Styles.timestamp}>{formatTime(new Date(message.time))}</span>
             </div>
             {message.sender_id === currentUser.id && (
               <img

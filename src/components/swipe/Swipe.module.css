@@ -1,76 +1,112 @@
 .cardContainer {
-    position: relative;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-}
-
-.swipe {
+    margin: 20px;
     position: relative;
-    width: 300px; /* Adjust the width to fit within the swipe container */
-    height: 400px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card {
+    position: relative;
+    width: 350px;
+    max-width: 90vw;
+    height: 500px;
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     overflow: hidden;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  }
+  
+  .profilePicture {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-bottom: 2px solid #eee;
+    margin-bottom: 20px;
+    border-radius: 20px 20px 0 0;
+  }
+  
+  .cardContent {
+    flex-grow: 1;
+    padding: 0 20px;
+  }
+  
+  .username {
+    font-size: 26px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .bio {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  .games, .platforms, .skill_level, .location {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 5px;
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    pointer-events: none; /* Prevent clicks on the overlay itself */
+  }
+  
+  .button {
+    border: none;
+    border-radius: 50%;
+    padding: 15px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-    will-change: transform, opacity;
-    z-index: 10;
-}
-
-.swipe img {
-    width: 100%;
-    height: 60%;
-    object-fit: cover;
-    border-bottom: 1px solid #ddd;
-}
-
-.swipe h3 {
-    margin: 10px 0;
-    font-size: 1.5em;
-    text-align: center;
-}
-
-.swipe p {
-    margin: 10px 20px;
-    text-align: center;
-}
-
-.buttons {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    margin-top: 20px;
-}
-
-button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out;
-}
-
-button:focus {
-    outline: none;
-}
-
-.dislike {
-    color: #f44336;
-}
-
-.superLike {
-    color: #ffdd57;
-}
-
-.like {
-    color: #4caf50;
-}
-
-button:hover {
-    transform: scale(1.1);
-}
+    width: 60px;
+    height: 60px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    pointer-events: auto; /* Allow clicks on buttons */
+  }
+  
+  .dislike {
+    background-color: white;
+    color: #009596;
+  }
+  
+  .dislike:hover {
+    background-color: #009596;
+    color: white;
+  }
+  
+  .like {
+    background-color: rgb(245, 79, 123);
+    color: white;
+  }
+  
+  .like:hover {
+    background-color: white;
+    color:rgb(245, 79, 123)
+  }
+  

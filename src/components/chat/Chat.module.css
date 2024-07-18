@@ -3,7 +3,7 @@
   flex-direction: column;
   height: 100vh;
   max-width: 600px;
-  margin: auto;
+  margin: 20px auto;
   border: 1px solid #ccc;
   border-radius: 10px;
   overflow: hidden;
@@ -12,13 +12,13 @@
 
 h2 {
   text-align: center;
-  color: rgb(156, 6, 81); 
+  color: rgb(245, 79, 123);
   font-size: 24px;
   margin: 20px 0;
   font-family: 'Arial', sans-serif;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
   padding: 10px;
-  border-bottom: 2px solid rgb(156, 6, 81); /* Adding a border for style */
+  border-bottom: 2px solid rgb(245, 79, 123); /* Adding a border for style */
 }
 
 .messages {
@@ -104,12 +104,12 @@ h2 {
 }
 
 .inputContainer input:focus {
-  border: 1px solid #007bff;
+  border: 1px solid #009596;
 }
 
 .inputContainer button {
   padding: 10px 15px;
-  background-color: rgb(156, 6, 81); /* Solid blue color */
+  background-color: #009596; 
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -118,7 +118,7 @@ h2 {
 }
 
 .inputContainer button:hover {
-  background-color: #0056b3;
+  background-color: #8fc8c8;
 }
 
 .timestamp {

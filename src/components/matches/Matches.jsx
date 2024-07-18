@@ -1,3 +1,4 @@
+// src/components/matches/Matches.jsx
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Styles from './Matches.module.css';
@@ -6,6 +7,8 @@ import api from '../../services/api';
 const Matches = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [matches, setMatches] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const userId = parseInt(localStorage.getItem("userId"), 10);
 
   useEffect(() => {
@@ -17,6 +20,7 @@ const Matches = () => {
         setCurrentUser(response.data);
       } catch (error) {
         console.error('Error fetching current user:', error);
+        setError('Failed to fetch current user.');
       }
     };
 
@@ -57,6 +61,9 @@ const Matches = () => {
         setMatches(userMatches.filter(match => match !== null));
       } catch (error) {
         console.error('Error fetching matches:', error);
+        setError('Failed to fetch matches.');
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -70,8 +77,12 @@ const Matches = () => {
     return `${hours}:${minutes}`;
   };
 
-  if (!currentUser) {
+  if (loading) {
     return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
   }
 
   return (

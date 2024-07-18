@@ -1,0 +1,92 @@
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 200px;
+  background-color: rgb(246, 246, 246);
+  color: rgb(245, 79, 123);;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  box-shadow: 2px 0 5px rgba(245, 79, 123, 0.3);
+  border-right: 1px solid rgb(245, 79, 123);
+}
+
+.iconSection {
+  margin-bottom: 20px;
+}
+
+.iconSection i {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.titleSection {
+  margin-bottom: 20px;
+}
+
+.titleSection h1 {
+  font-size: 24px;
+  text-align: center;
+}
+
+.profile {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profilePicture {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+.username {
+  font-size: 18px;
+  color: black;
+}
+
+.nav {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navLink {
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+}
+
+.navLink i {
+  margin-right: 10px;
+}
+
+.navLink span {
+  text-align: right;
+}
+
+.navLink:hover {
+  background-color: #83bebe;
+  color: white;
+  border-radius: 20px 0 0 20px;
+}
+
+.active {
+  background-color: #009596;
+  color: white;
+  border-radius: 20px 0 0 20px;
+}
+
+.logoutIcon {
+  cursor: pointer;
+}

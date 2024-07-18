@@ -7,6 +7,10 @@ import Feed from './pages/feed/Feed';
 import { useState, useEffect } from 'react';
 import Chat from './components/chat/Chat';
 import Matches from './components/matches/Matches';
+import Sidebar from './components/Header/Header';
+import Profile from './components/Profile/Profile';
+import MatchPage from './components/MatchPage/MatchPage';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -25,18 +29,21 @@ function App() {
 
   const handleLogin = (userData) => {
     setCurrentUser(userData); 
+    localStorage.setItem('currentUser', JSON.stringify(userData));
   };
 
   return (
     <Router>
+      {currentUser && <Sidebar currentUser={currentUser} />}
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
         <Route path="/feed" element={<Feed currentUser={currentUser} />} />
         <Route path="/matches/:userId" element={<Matches />} />
-        <Route path="/chat/:matchId" element={<Chat/>} />
-    
+        <Route path="/chat/:matchId" element={<Chat />} />
+        <Route path="/profile/:userId" element={<Profile />} />
+        <Route path="/match" element={<MatchPage />} />
       </Routes>
     </Router>
   );

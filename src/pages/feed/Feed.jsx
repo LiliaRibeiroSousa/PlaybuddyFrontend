@@ -1,3 +1,4 @@
+// src/pages/Feed/Feed.jsx
 import { useState, useEffect } from "react";
 import api from "../../services/api";
 import Swipe from "../../components/swipe/Swipe";
@@ -9,8 +10,6 @@ const Feed = () => {
   const [users, setUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [matchMessage, setMatchMessage] = useState('');
-  const [showMatchPopup, setShowMatchPopup] = useState(false);
   const user1 = parseInt(localStorage.getItem("userId"), 10);
 
   const navigate = useNavigate();
@@ -61,9 +60,7 @@ const Feed = () => {
         console.log("No match");
       } else {
         console.log("Match");
-        setMatchMessage(`It's a match with ${swipedUser.username}!`);
-        setShowMatchPopup(true);
-        setTimeout(() => setShowMatchPopup(false), 2000); // Hide pop-up after 2 seconds
+        navigate('/match', { state: { matchUser: swipedUser } });
       }
     } catch (error) {
       console.error(
@@ -102,11 +99,6 @@ const Feed = () => {
       <div className={Styles.buttonContainer}>
         <button onClick={() => navigate(`/matches/${user1}`, { state: { currentUser } })}>View Matches</button>
       </div>
-      {showMatchPopup && (
-        <div className={Styles.matchPopup}>
-          {matchMessage}
-        </div>
-      )}
     </div>
   );
 };
