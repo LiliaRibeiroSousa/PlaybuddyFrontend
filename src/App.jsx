@@ -7,7 +7,7 @@ import Feed from './pages/feed/Feed';
 import { useState, useEffect } from 'react';
 import Chat from './components/chat/Chat';
 import Matches from './components/matches/Matches';
-import Sidebar from './components/Header/Header';
+import Header from './components/Header/Header';
 import Profile from './components/Profile/Profile';
 import MatchPage from './components/MatchPage/MatchPage';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -32,9 +32,14 @@ function App() {
     localStorage.setItem('currentUser', JSON.stringify(userData));
   };
 
+  const handleLogout = () => {
+    setCurrentUser(null);
+    localStorage.removeItem('currentUser');
+  };
+
   return (
     <Router>
-      {currentUser && <Sidebar currentUser={currentUser} />}
+      {currentUser && <Header currentUser={currentUser} onLogout={handleLogout}/>}
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/register" element={<Register />} />

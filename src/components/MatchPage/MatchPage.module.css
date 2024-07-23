@@ -1,4 +1,4 @@
-/* src/components/MatchPage/MatchPage.module.css */
+
 .matchPage {
     display: flex;
     flex-direction: column;
@@ -37,5 +37,13 @@
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
+    
   }
-  
+  .chatNowButton {
+    background-color: rgb(245, 79, 123);
+    color: white;
+  }
+
+  .continueButton{
+    background-color: #009596;
+  }

@@ -60,40 +60,46 @@ function LoginForm({ onLogin }) {
   };
 
   return (
-    <div className={Styles.loginForm}>
-      <img src={tetrisheart} alt="Tetris Heart" />
-      <h2>Login</h2>
-      {error && <p className={Styles.error}>{error}</p>}
-      <form onSubmit={handleLogin}>
-        <label htmlFor="usernameOrEmail">Username or Email</label>
-        <input
-          id="usernameOrEmail"
-          type="text"
-          name="usernameOrEmail"
-          placeholder="Username or Email"
-          onChange={handleChange}
-          required
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          id="password"
-          type="password"
-          name="password"
-          placeholder="Password"
-          onChange={handleChange}
-          required
-        />
-        <button type="submit">Login</button>
-      </form>
-      <p>
-        No account?{' '}
-        <Link to="/register" style={{ textDecoration: 'underline', color: 'blue' }}>
-          Register here
-        </Link>
-      </p>
+    <div className={Styles.loginFormContainer}>
+      <div className={Styles.loginForm}>
+        <div className={Styles.imageContainer}>
+          <img src={tetrisheart} alt="Tetris Heart" />
+        </div>
+        <div className={Styles.formContainer}>
+          <h2>Login</h2>
+          {error && <p className={Styles.error}>{error}</p>}
+          <form onSubmit={handleLogin}>
+            <label htmlFor="usernameOrEmail">Username or Email</label>
+            <input
+              id="usernameOrEmail"
+              type="text"
+              name="usernameOrEmail"
+              placeholder="Username or Email"
+              onChange={handleChange}
+              required
+            />
+            <label htmlFor="password">Password</label>
+            <input
+              id="password"
+              type="password"
+              name="password"
+              placeholder="Password"
+              onChange={handleChange}
+              required
+            />
+            <button type="submit">Login</button>
+          </form>
+          <p>
+            No account? {' '}
+            <Link to="/register" style={{ textDecoration: 'underline', color: '#009596' }}>
+              Register here
+            </Link>
+          </p>
+        </div>
+      </div>
     </div>
   );
-}
+} 
 
 LoginForm.propTypes = {
   onLogin: PropTypes.func.isRequired,

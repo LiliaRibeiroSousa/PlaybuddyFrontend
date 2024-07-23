@@ -1,66 +1,117 @@
+body {
+  background-image: url('path/to/your/image.jpg'); /* Path to your background image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh; /* Ensure the body takes full height of the viewport */
+  margin: 0;
+}
+
+.registerFormContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Center the form vertically and horizontally */
+}
+
 .registerForm {
-    max-width: 400px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 800px; /* Increased width to accommodate two columns */
+  margin: 0px auto;
+  padding: 20px;
+  background-color: rgba(249, 249, 249, 0.9); /* Semi-transparent background */
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal columns */
+  grid-gap: 20px; /* Space between columns */
+}
+
+.registerForm-form h2 {
+  grid-column: span 2; /* Make the heading span both columns */
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.registerForm label {
+  display: block;
+  margin-bottom: 5px;
+  color: #666;
+}
+
+.registerForm input[type="text"],
+.registerForm input[type="email"],
+.registerForm input[type="password"],
+.registerForm input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+.registerForm button {
+  grid-column: span 2; /* Make the button span both columns */
+  width: 100%;
+  padding: 10px;
+  background-color: #fe4f7b;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.registerForm button:hover {
+  background-color: #ff3366;
+}
+
+.registerForm button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.registerForm p {
+  grid-column: span 2; /* Make the paragraph span both columns */
+  text-align: center;
+  margin-top: 20px;
+  color: #777;
+}
+
+.registerForm p a {
+  color: #007bff;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+/* Additional styles for the file input field */
+.registerForm input[type="file"] {
+  cursor: pointer;
+}
+
+.registerTitleContainer {
+  grid-column: span 2; /* Make the container span both columns */
+  display: flex;
+  justify-content: center; /* Center the content horizontally */
+}
+
+.registerTitle {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 24px;
+}
+
+@media (max-width: 600px) {
+  .registerForm {
+    grid-template-columns: 1fr; /* Single column layout */
   }
-  
-  .registerForm-form h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
+
+  .registerForm-form h2,
+  .registerForm button,
+  .registerForm p,
+  .registerTitleContainer {
+    grid-column: span 1; /* Make these elements span one column */
   }
-  
-  .registerForm label {
-    display: block;
-    margin-bottom: 5px;
-    color: #666;
-  }
-  
-  .registerForm input[type="text"],
-  .registerForm input[type="email"],
-  .registerForm input[type="password"],
-  .registerForm input[type="file"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    font-size: 14px;
-  }
-  
-  .registerForm button {
-    width: 100%;
-    padding: 10px;
-    background-color: #fe4f7b;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 16px;
-  }
-  
-  .registerForm button:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
-  }
-  
-  /* Additional styles for the file input field */
-  .registerForm input[type="file"] {
-    cursor: pointer;
-  }
-  
-  .registerForm p {
-    text-align: center;
-    margin-top: 20px;
-    color: #777;
-  }
-  
-  .registerForm p a {
-    color: #007bff;
-    text-decoration: underline;
-    font-weight: bold;
-  }
+}

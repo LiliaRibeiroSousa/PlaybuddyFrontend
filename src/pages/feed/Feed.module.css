@@ -15,6 +15,14 @@
   .buttonContainer {
     margin-top: 20px;
   }
+
+  .viewMatchesButton{
+    background-color: #009596;
+  }
+
+  .viewMatchesButton:hover{
+    background-color: #007373;
+  }
   
   .matchPopup {
     position: fixed;
@@ -39,3 +47,24 @@
     }
   }
   
+  @media (max-width: 600px) {
+    .header {
+      display: none; /* Hide header on small screens */
+    }
+  
+    .footer-icons {
+      display: flex; /* Show footer icons on small screens */
+    }
+  
+    .logout {
+      position: fixed;
+      top: 10px;
+      right: 20px;
+      background-color: #333;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 1001;
+    }
+  }

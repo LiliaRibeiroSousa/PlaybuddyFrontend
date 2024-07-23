@@ -1,31 +1,15 @@
-import { useEffect, useState } from 'react';
+
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import api from '../../services/api';
+import PropTypes from 'prop-types';
 import Styles from './Header.module.css';
 
-const Header = () => {
-  const [currentUser, setCurrentUser] = useState(null);
-  const userId = parseInt(localStorage.getItem("userId"), 10);
+
+const Header = ({ currentUser, onLogout }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  useEffect(() => {
-    const fetchCurrentUser = async () => {
-      if (!userId) return;
-
-      try {
-        const response = await api.getUserById(userId);
-        setCurrentUser(response.data);
-      } catch (error) {
-        console.error('Error fetching current user:', error);
-      }
-    };
-
-    fetchCurrentUser();
-  }, [userId]);
-
   const handleLogout = () => {
-    localStorage.removeItem('userId');
+    onLogout();
     navigate('/')
   }
 
@@ -37,7 +21,7 @@ const Header = () => {
       {currentUser && (
         <div className={Styles.profile}>
           <img
-            src={currentUser.profile_picture}
+            src={currentUser.profilePicture}
             alt={`${currentUser.username}'s profile`}
             className={Styles.profilePicture}
           />
@@ -52,17 +36,15 @@ const Header = () => {
         </Link>
         
         <Link 
-          to={`/matches/${userId}`} 
-          className={`${Styles.navLink} ${location.pathname === `/matches/${userId}` ? Styles.active : ''}`}>
+          to={`/matches/${currentUser.userId}`} 
+          className={`${Styles.navLink} ${location.pathname === `/matches/${currentUser.userId}` ? Styles.active : ''}`}>
           <i className="fas fa-comments"></i> <span>Chat</span>
         </Link>
-        {currentUser && (
-          <Link 
-            to={`/profile/${userId}`} 
-            className={`${Styles.navLink} ${location.pathname === `/profile/${userId}` ? Styles.active : ''}`}>
-            <i className="fas fa-user-circle"></i> <span>Profile</span>
-          </Link>
-        )}
+        <Link 
+          to={`/profile/${currentUser.userId}`} 
+          className={`${Styles.navLink} ${location.pathname === `/profile/${currentUser.userId}` ? Styles.active : ''}`}>
+          <i className="fas fa-user-circle"></i> <span>Profile</span>
+        </Link>
         <div 
           className={`${Styles.navLink} ${Styles.logoutIcon}`} 
           onClick={handleLogout}>
@@ -71,6 +53,11 @@ const Header = () => {
       </nav>
     </div>
   );
+};
+
+Header.propTypes = {
+  currentUser: PropTypes.object.isRequired,
+  onLogout: PropTypes.func.isRequired,
 };
 
 export default Header;

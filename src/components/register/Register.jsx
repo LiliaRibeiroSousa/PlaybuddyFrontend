@@ -29,7 +29,7 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-       console.log(formData)
+    console.log(formData);
     try {
       const formDataObj = new FormData();
       for (const key in formData) {
@@ -53,6 +53,9 @@ function Register() {
   return (
     <div>
       <form onSubmit={handleSubmit} className={Styles.registerForm}>
+        <div className={Styles.registerTitleContainer}>
+          <h2 className={Styles.registerTitle}>Register Form</h2>
+        </div>
         <input type="text" name="username" placeholder="Username" onChange={handleChange} required />
         <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
         <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
@@ -65,7 +68,7 @@ function Register() {
         <button type="submit">Register</button>
         <p>
           Already have an account?{' '}
-          <Link to="/login" style={{ textDecoration: 'underline', color: 'blue' }}>Login</Link>
+          <Link to="/login" style={{ textDecoration: 'underline', color: '#009596' }}>Login</Link>
         </p>
       </form>
     </div>

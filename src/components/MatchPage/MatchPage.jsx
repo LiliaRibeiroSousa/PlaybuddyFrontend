@@ -1,14 +1,14 @@
-// src/components/MatchPage/MatchPage.jsx
-import React from "react";
+// src/pages/MatchPage.jsx
 import { useNavigate, useLocation } from "react-router-dom";
 import Styles from "./MatchPage.module.css";
-import heartIcon from "../../assets/pinkheart1.jpeg"; // Add a heart icon image in your assets folder
+import heartIcon from "../../assets/pinkheart1.jpeg";
 
 const MatchPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { matchUser } = location.state || {};
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const { matchId } = location.state || {};
 
   if (!matchUser) {
     return <div>No match data found</div>;
@@ -19,8 +19,10 @@ const MatchPage = () => {
   };
 
   const handleChat = () => {
-    navigate(`/chat/${matchUser.id}`);
+    console.log('Navigating to chat with state:', { currentUser, matchedUserId: matchUser.id, matchId });
+    navigate(`/chat`, { state: { currentUser, matchedUserId: matchUser.id, matchId } });
   };
+  
 
   return (
     <div className={Styles.matchPage}>
@@ -31,8 +33,8 @@ const MatchPage = () => {
         <img src={matchUser.profile_picture} alt="Matched User" className={Styles.userImage} />
       </div>
       <div className={Styles.buttonContainer}>
-        <button onClick={handleContinueSwiping}>Continue Swiping</button>
-        <button onClick={handleChat}>Chat Now</button>
+        <button className={Styles.continueButton} onClick={handleContinueSwiping}>Continue Swiping</button>
+        <button className={Styles.chatNowButton} onClick={handleChat}>Chat Now</button>
       </div>
     </div>
   );

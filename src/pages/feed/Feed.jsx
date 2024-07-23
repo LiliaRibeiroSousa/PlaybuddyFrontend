@@ -11,7 +11,7 @@ const Feed = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const user1 = parseInt(localStorage.getItem("userId"), 10);
-
+  const isMobile = window.innerWidth <= 600;
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -97,7 +97,7 @@ const Feed = () => {
         )}
       </div>
       <div className={Styles.buttonContainer}>
-        <button onClick={() => navigate(`/matches/${user1}`, { state: { currentUser } })}>View Matches</button>
+        <button className={Styles.viewMatchesButton} onClick={() => navigate(`/matches/${user1}`, { state: { currentUser } })}>View Matches</button>
       </div>
     </div>
   );

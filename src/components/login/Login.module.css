@@ -1,8 +1,15 @@
-.loginForm {
-  max-width: 400px;
-  margin: auto;
-  padding: 20px;
+.loginFormContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Ensures the container takes the full viewport height */
   background: linear-gradient(to right, #f9f9f9, #e9ebee);
+}
+
+.loginForm {
+  display: flex;
+  max-width: 800px;
+  background: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
   transition: transform 0.15s ease-in-out;
@@ -12,34 +19,57 @@
   transform: translateY(-5px);
 }
 
-.loginForm h2 {
+.imageContainer {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.imageContainer img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px 0 0 8px;
+}
+
+.formContainer {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.formContainer h2 {
   text-align: center;
   margin-bottom: 20px;
   color: #333;
-  font-size: 24px; /* Increase font size for better visibility */
+  font-size: 24px;
 }
 
-.loginForm label {
+.formContainer label {
   display: block;
   margin-bottom: 5px;
   color: #666;
 }
 
-.loginForm input[type="text"],.loginForm input[type="password"] {
+.formContainer input[type="text"],
+.formContainer input[type="password"] {
   width: 100%;
   padding: 12px;
   margin-bottom: 20px;
   border: 1px solid #ccc;
   border-radius: 20px;
   font-size: 14px;
-  outline: none; /* Remove outline for a cleaner look */
+  outline: none;
 }
 
-.loginForm input:focus {
-  border-color: #007bff; /* Change border color on focus */
+.formContainer input:focus {
+  border-color: #007bff;
 }
 
-.loginForm button {
+.formContainer button {
   width: 100%;
   padding: 12px;
   background-color: #fe4f7b;
@@ -49,31 +79,40 @@
   cursor: pointer;
   font-weight: bold;
   font-size: 16px;
-  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+  transition: background-color 0.3s ease;
 }
 
-.loginForm button:hover {
-  background-color: #f62055 /* Darker shade on hover */
+.formContainer button:hover {
+  background-color: #f62055;
 }
 
-/* Style for the registration link */
-.loginForm p {
+.formContainer p {
   text-align: center;
   margin-top: 20px;
   color: #777;
 }
 
-.loginForm p a {
-  color: #007bff;
+.formContainer p a {
+  color: #000506;
   text-decoration: underline;
   font-weight: bold;
-  transition: color 0.3s ease; /* Smooth transition for hover effect */
+  transition: color 0.3s ease;
 }
 
-.loginForm p a:hover {
-  color: #004085; /* Darker shade on hover */
+.formContainer p a:hover {
+  color: #004085;
 }
-.loginForm img {
-  max-width: 100%; /* Ensures the image does not exceed the width of its container */
-  height: auto; /* Adjusts the height automatically to maintain the aspect ratio */
+
+@media (max-width: 768px) {
+  .loginForm {
+    flex-direction: column;
+  }
+
+  .imageContainer {
+    border-radius: 8px 8px 0 0;
+  }
+
+  .formContainer {
+    border-radius: 0 0 8px 8px;
+  }
 }
